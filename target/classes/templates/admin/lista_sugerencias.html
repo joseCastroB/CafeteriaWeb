@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Sugerencias - Milenaria Café</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="~{fragments/admin_navbar :: admin-navbar}"></header>
+
+    <main class="admin-container">
+        <h1 class="admin-title">Lista de Sugerencias</h1>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        
+        <div class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th style="width: 40%;">Mensaje</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sugerencia : ${sugerencias}">
+                        <td th:text="${sugerencia.id}">1</td>
+                        <td th:text="${sugerencia.nombre}">Nombre Usuario</td>
+                        <td th:text="${sugerencia.correo}">correo@example.com</td>
+                        <td th:text="${sugerencia.mensaje}">Este es un mensaje de sugerencia.</td>
+                        <td th:text="${#temporals.format(sugerencia.fechaCreacion, 'dd-MM-yyyy HH:mm')}">01-01-2025 10:30</td>
+                        <td class="actions-cell">
+                            <form th:action="@{/admin/sugerencias/eliminar/{id}(id=${sugerencia.id})}" method="post">
+                                <button type="submit" class="action-btn delete-btn" onclick="return confirm('¿Estás seguro de que deseas eliminar esta sugerencia?');">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

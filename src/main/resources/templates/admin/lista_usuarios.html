@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios - Milenaria Café</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="~{fragments/admin_navbar :: admin-navbar}"></header>
+
+    <main class="admin-container">
+        <h1 class="admin-title">Lista de Clientes</h1>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        
+        <div class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.id}">1</td>
+                        <td th:text="${usuario.nombre}">Nombre de Usuario</td>
+                        <td th:text="${usuario.correo}">correo@example.com</td>
+                        <td th:text="${usuario.telefono}">987654321</td>
+                        <td>
+                            <span th:if="${usuario.activo}" class="status-active">Sí</span>
+                            <span th:unless="${usuario.activo}" class="status-inactive">No</span>
+                        </td>
+                        <td class="actions-cell">
+                            <a th:href="@{/admin/usuarios/editar/{id}(id=${usuario.id})}" class="action-btn edit-btn">Editar</a>
+                            <form th:action="@{/admin/usuarios/toggle/{id}(id=${usuario.id})}" method="post" style="display: inline;">
+                                <button type="submit" th:text="${usuario.activo ? 'Desactivar' : 'Activar'}" 
+                                        th:classappend="${usuario.activo ? 'toggle-btn-deactivate' : 'toggle-btn-activate'}"
+                                        class="action-btn"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

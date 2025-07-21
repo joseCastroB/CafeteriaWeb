@@ -7,6 +7,8 @@ import com.cafeteria.cafeteria_web.repository.SugerenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FormularioService {
 
@@ -21,6 +23,29 @@ public class FormularioService {
     }
 
     public void guardarReclamacion(LibroReclamaciones reclamacion) {
+        libroReclamacionesRepository.save(reclamacion);
+    }
+
+    public List<Sugerencia> findAllSugerencias() {
+        return sugerenciaRepository.findAll();
+    }
+
+    public void deleteSugerencia(Long id) {
+        sugerenciaRepository.deleteById(id);
+    }
+
+    public List<LibroReclamaciones> findAllReclamaciones() {
+        return libroReclamacionesRepository.findAll();
+    }
+
+    public void deleteReclamacion(Long id) {
+        libroReclamacionesRepository.deleteById(id);
+    }
+
+    public void updateReclamacionStatus(Long id, String nuevoEstado) {
+        LibroReclamaciones reclamacion = libroReclamacionesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de Reclamación inválido: " + id));
+        reclamacion.setEstado(nuevoEstado);
         libroReclamacionesRepository.save(reclamacion);
     }
 }

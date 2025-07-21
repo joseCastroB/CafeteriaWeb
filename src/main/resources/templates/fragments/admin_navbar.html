@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<header class="header scroll-header" id="header" th:fragment="admin-navbar">
+    <nav class="nav container">
+        <a th:href="@{/admin/dashboard}" class="nav__logo">Admin Panel</a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item"><a th:href="@{/admin/dashboard}" class="nav__link">Dashboard</a></li>
+                <li class="nav__item"><a th:href="@{/admin/usuarios}" class="nav__link">Usuarios</a></li>
+                <li class="nav__item"><a th:href="@{/admin/sugerencias}" class="nav__link">Sugerencias</a></li>
+                <li class="nav__item"><a th:href="@{/admin/reclamaciones}" class="nav__link">Reclamaciones</a></li>
+                <!-- Aquí se pueden añadir más enlaces para el admin -->
+                
+                <li class="nav__item">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav__link button-like-logout logout-button">
+                            <i class="fas fa-sign-out-alt"></i><span>Cerrar Sesión</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            <div class="nav__close" id="nav-close"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+</header>
+
+</body>
+</html>

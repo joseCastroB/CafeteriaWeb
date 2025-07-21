@@ -1,0 +1,65 @@
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Libro de Reclamaciones - Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="~{fragments/admin_navbar :: admin-navbar}"></header>
+
+    <main class="admin-container">
+        <h1 class="admin-title">Libro de Reclamaciones</h1>
+
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        
+        <div class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Consumidor</th>
+                        <th>Correo</th>
+                        <th>Tipo</th>
+                        <th>Detalle</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="rec : ${reclamaciones}">
+                        <td th:text="${rec.id}">1</td>
+                        <td th:text="${rec.consumidorNombre}">Nombre Consumidor</td>
+                        <td th:text="${rec.consumidorCorreo}">correo@example.com</td>
+                        <td th:text="${rec.tipoSolicitud}">RECLAMO</td>
+                        <td th:text="${rec.detalleSolicitud}" style="max-width: 300px; white-space: pre-wrap;">Detalle...</td>
+                        <td>
+                            <span th:if="${rec.estado == 'PENDIENTE'}" class="status-pending">PENDIENTE</span>
+                            <span th:if="${rec.estado == 'RESUELTO'}" class="status-resolved">RESUELTO</span>
+                        </td>
+                        <td class="actions-cell">
+                            <!-- Formulario para cambiar estado -->
+                            <form th:action="@{/admin/reclamaciones/estado/{id}(id=${rec.id})}" method="post" style="display: inline;">
+                                <input type="hidden" name="estado" th:value="${rec.estado == 'PENDIENTE' ? 'RESUELTO' : 'PENDIENTE'}" />
+                                <button type="submit" class="action-btn"
+                                        th:text="${rec.estado == 'PENDIENTE' ? 'Resolver' : 'Reabrir'}"
+                                        th:classappend="${rec.estado == 'PENDIENTE' ? 'status-btn-resolve' : 'status-btn-pending'}">
+                                </button>
+                            </form>
+                            <!-- Formulario para eliminar -->
+                            <form th:action="@{/admin/reclamaciones/eliminar/{id}(id=${rec.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="action-btn delete-btn" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reclamación?');">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

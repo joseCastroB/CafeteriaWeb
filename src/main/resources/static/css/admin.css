@@ -1,0 +1,136 @@
+.admin-container {
+    padding: 8rem 2rem 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-title {
+    font-family: var(--title-font);
+    font-size: 2.5rem;
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.admin-subtitle {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 3rem;
+}
+
+.table-container {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 2rem;
+    overflow-x: auto;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.user-table th {
+    font-family: var(--title-font);
+    font-size: 1.1rem;
+    color: var(--title-color);
+}
+
+.status-active {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.status-resolved {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.action-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.toggle-btn-deactivate {
+    background-color: #ffc107;
+    color: #212529;
+}
+.toggle-btn-deactivate:hover {
+    background-color: #e0a800;
+}
+
+.toggle-btn-activate {
+    background-color: #28a745;
+}
+.toggle-btn-activate:hover {
+    background-color: #218838;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.status-btn-resolve {
+    background-color: #28a745;
+}
+.status-btn-resolve:hover {
+    background-color: #218838;
+}
+
+.status-btn-pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+.status-btn-pending:hover {
+    background-color: #e0a800;
+}
+
+.alert.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: .5rem;
+    text-align: center;
+}

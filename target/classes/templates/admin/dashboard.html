@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Milenaria Café</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="~{fragments/admin_navbar :: admin-navbar}"></header>
+    
+    <main class="admin-container">
+        <h1 class="admin-title">Bienvenido, Administrador</h1>
+        <p class="admin-subtitle">Desde aquí puedes gestionar los recursos de la cafetería.</p>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

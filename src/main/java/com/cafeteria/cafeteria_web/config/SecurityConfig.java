@@ -1,34 +1,37 @@
 package com.cafeteria.cafeteria_web.config;
 
 
-import com.cafeteria.cafeteria_web.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // UserDetailsService bean no cambia
     @Bean
-    public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
+    public UserDetailsService userDetailsService(com.cafeteria.cafeteria_web.repository.UsuarioRepository usuarioRepository) {
         return username -> {
             var usuario = usuarioRepository.findByCorreo(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+                .orElseThrow(() -> new org.springframework.security.core.userdetails.UsernameNotFoundException("Usuario no encontrado: " + username));
             
-            return User.builder()
+            return org.springframework.security.core.userdetails.User.builder()
                 .username(usuario.getCorreo())
                 .password(usuario.getContrasena())
                 .roles(usuario.getRol())
@@ -40,16 +43,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                // Permite el acceso a recursos estáticos
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/videos/**").permitAll()
-                // Permite el acceso a páginas públicas (se han quitado los formularios de esta lista)
                 .requestMatchers("/", "/index", "/register", "/login", "/contacto").permitAll()
-                // Cualquier otra solicitud requiere autenticación (esto ahora incluye /sugerencias y /reclamaciones)
+                // Proteger rutas de admin
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/index", true)
+                // Usar el handler personalizado
+                .successHandler(customAuthenticationSuccessHandler)
                 .permitAll()
             )
             .logout(logout -> logout
