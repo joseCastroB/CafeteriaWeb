@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<header class="header scroll-header" id="header" th:fragment="navbar">
+    <nav class="nav container">
+        <a th:href="@{/(lang=${#locale.language})}" class="nav__logo">Milenaria Café</a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <!-- CORRECCIÓN: Se añade el parámetro de idioma a todos los enlaces -->
+                <li class="nav__item"><a th:href="@{/(lang=${#locale.language})}" class="nav__link" th:text="#{navbar.inicio}">Inicio</a></li>
+                <li class="nav__item"><a th:href="@{/sugerencias(lang=${#locale.language})}" class="nav__link" th:text="#{navbar.sugerencias}">Sugerencias</a></li>
+                <li class="nav__item"><a th:href="@{/reclamaciones(lang=${#locale.language})}" class="nav__link" th:text="#{navbar.reclamaciones}">Reclamaciones</a></li>
+                <li class="nav__item"><a th:href="@{/contacto(lang=${#locale.language})}" class="nav__link" th:text="#{navbar.contacto}">Contacto</a></li>
+                
+                <!-- Enlaces de Autenticación -->
+                <li class="nav__item" sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login(lang=${#locale.language})}" class="nav__link button-like">
+                        <i class="fas fa-sign-in-alt"></i><span th:text="#{navbar.login}">Iniciar Sesión</span>
+                    </a>
+                </li>
+                
+                <li class="nav__item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav__link button-like-logout logout-button">
+                            <i class="fas fa-sign-out-alt"></i><span th:text="#{navbar.logout}">Cerrar Sesión</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            <div class="nav__close" id="nav-close"><i class="fas fa-times"></i></div>
+        </div>
+        
+        <!-- Selector de Idioma (Este ya funciona correctamente) -->
+        <div class="lang-selector">
+            <a th:href="@{?lang=es}">ES</a> | <a th:href="@{?lang=en}">EN</a>
+        </div>
+        
+        <div class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+</header>
+
+</body>
+</html>

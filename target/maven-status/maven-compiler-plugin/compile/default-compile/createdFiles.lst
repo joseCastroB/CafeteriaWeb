@@ -1,0 +1,15 @@
+com\cafeteria\cafeteria_web\entity\LibroReclamaciones.class
+com\cafeteria\cafeteria_web\controller\FormularioController.class
+com\cafeteria\cafeteria_web\entity\Sugerencia.class
+com\cafeteria\cafeteria_web\repository\UsuarioRepository.class
+com\cafeteria\cafeteria_web\config\I18nConfig.class
+com\cafeteria\cafeteria_web\config\SecurityConfig.class
+com\cafeteria\cafeteria_web\controller\HomeController.class
+com\cafeteria\cafeteria_web\services\UsuarioService.class
+com\cafeteria\cafeteria_web\controller\AuthController.class
+com\cafeteria\cafeteria_web\repository\LibroReclamacionesRepository.class
+com\cafeteria\cafeteria_web\services\FormularioService.class
+com\cafeteria\cafeteria_web\model\RegistroDTO.class
+com\cafeteria\cafeteria_web\CafeteriaWebApplication.class
+com\cafeteria\cafeteria_web\repository\SugerenciaRepository.class
+com\cafeteria\cafeteria_web\entity\Usuario.class

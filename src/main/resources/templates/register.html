@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Milenaria Café</title>
+    <!-- Estilos principales y de autenticación -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar principal -->
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <main class="auth-container">
+        <form th:action="@{/register}" th:object="${usuario}" method="post" class="auth-form">
+            <h2 class="auth-title">Crear Cuenta</h2>
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" th:field="*{nombre}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" th:field="*{correo}" class="form-control" required>
+            </div>
+             <div class="form-group">
+                <label for="telefono">Teléfono (Opcional)</label>
+                <input type="tel" id="telefono" th:field="*{telefono}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" th:field="*{contrasena}" class="form-control" required>
+            </div>
+            <button type="submit" class="button" style="width: 100%;">Registrarse</button>
+            <a th:href="@{/login}" class="auth-link">¿Ya tienes una cuenta? Inicia Sesión</a>
+        </form>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

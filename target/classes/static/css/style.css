@@ -1,0 +1,539 @@
+/* ==================== VARIABLES CSS ==================== */
+:root {
+    --header-height: 3.5rem;
+
+    /* Colores */
+    --first-color: #A67B5B; /* Marrón principal (café) */
+    --first-color-alt: #8D5B4C; /* Marrón más oscuro */
+    --title-color: #38220f; /* Marrón muy oscuro para títulos */
+    --text-color: #5F5B57; /* Color de texto principal */
+    --text-color-light: #A2A2A2;
+    --body-color: #FDFCFB; /* Fondo crema muy claro */
+    --container-color: #FFFFFF; /* Blanco para tarjetas */
+
+    /* Fuentes y tipografía */
+    --body-font: 'Roboto', sans-serif;
+    --title-font: 'Playfair Display', serif;
+    --biggest-font-size: 2.25rem;
+    --h1-font-size: 1.75rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+
+    /* Pesos de fuente */
+    --font-medium: 500;
+    --font-bold: 700;
+
+    /* Márgenes */
+    --mb-0-5: .5rem;
+    --mb-0-75: .75rem;
+    --mb-1: 1rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+
+    /* z-index */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 968px) {
+    :root {
+        --biggest-font-size: 4rem;
+        --h1-font-size: 2.25rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+/* ==================== BASE ==================== */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition: .4s; /* Para modo oscuro si se implementa */
+}
+
+h1, h2, h3, h4 {
+    color: var(--title-color);
+    font-family: var(--title-font);
+    font-weight: var(--font-bold);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==================== CLASES REUTILIZABLES ==================== */
+.container {
+    max-width: 1024px;
+    margin-left: var(--mb-1-5);
+    margin-right: var(--mb-1-5);
+}
+
+.section {
+    padding: 4.5rem 0 2rem;
+}
+
+.section__title {
+    font-size: var(--h1-font-size);
+    text-align: center;
+    margin-bottom: var(--mb-0-5);
+}
+
+.section__subtitle {
+    display: block;
+    font-size: var(--small-font-size);
+    color: var(--first-color);
+    text-align: center;
+    margin-bottom: var(--mb-2-5);
+}
+
+.button {
+    display: inline-block;
+    background-color: var(--first-color);
+    color: #FFF;
+    padding: 1rem 1.75rem;
+    border-radius: .5rem;
+    font-weight: var(--font-medium);
+    transition: .3s;
+}
+
+.button:hover {
+    background-color: var(--first-color-alt);
+    transform: translateY(-3px);
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    width: 100%;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--z-fixed);
+    transition: .4s;
+}
+
+.nav {
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: .4s; /* Añadido para suavizar el cambio de padding */
+}
+
+.nav__logo {
+    color: var(--container-color);
+    font-family: var(--title-font);
+    font-weight: var(--font-bold);
+    font-size: var(--h2-font-size);
+}
+
+.nav__toggle,
+.nav__close {
+    font-size: 1.5rem;
+    color: var(--container-color);
+    cursor: pointer;
+}
+
+/* Estilos para alinear los enlaces del navbar que tienen iconos */
+.nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+@media screen and (max-width: 767px) {
+    .nav__menu {
+        position: fixed;
+        background-color: var(--body-color);
+        top: -100%;
+        left: 0;
+        width: 100%;
+        padding: 4rem 0 3rem;
+        transition: .4s;
+        box-shadow: 0 4px 12px hsla(0, 0%, 20%, .1);
+    }
+    .nav__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1.5rem;
+    }
+    .nav__link {
+        color: var(--title-color);
+        font-weight: var(--font-medium);
+    }
+    .nav__close {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        color: var(--title-color);
+    }
+}
+
+/* Mostrar menú */
+.show-menu {
+    top: 0;
+}
+
+/* Estilo del header al hacer scroll */
+.scroll-header {
+    background-color: transparent; /* El fondo de la barra completa es transparente */
+    padding: 0.5rem 0; /* Añade espacio vertical para el efecto flotante */
+    transition: padding .4s; /* Anima el cambio de tamaño */
+}
+
+/* Estilo para el contenedor de navegación DENTRO del header con scroll */
+.scroll-header .nav {
+    background-color: #EADFD5; /* Color piel elegante */
+    border-radius: 3rem; /* Bordes muy curvos para efecto píldora */
+    box-shadow: 0 4px 12px hsla(0, 0%, 20%, .1); /* Sombra para que destaque */
+    padding-left: 1.5rem; /* Espacio interno para que el texto no pegue al borde */
+    padding-right: 1.5rem;
+}
+
+
+.scroll-header .nav__logo {
+    color: var(--title-color);
+}
+
+.scroll-header .nav__toggle {
+    color: var(--title-color);
+}
+
+/* ==================== HERO ==================== */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    color: #FFF;
+    text-align: center;
+}
+
+.hero__container {
+    max-width: 600px;
+}
+
+.hero__title {
+    font-size: var(--biggest-font-size);
+    margin-bottom: var(--mb-1);
+    color: #FFF;
+}
+
+.hero__subtitle {
+    font-size: var(--h2-font-size);
+    font-family: var(--body-font);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--mb-2);
+}
+
+/* ==================== MENÚ ==================== */
+.menu__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.menu__item {
+    background-color: var(--container-color);
+    padding: 1.5rem;
+    border-radius: .5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px hsla(0, 0%, 20%, .05);
+    transition: .3s;
+}
+
+.menu__item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px hsla(0, 0%, 20%, .1);
+}
+
+.menu__img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: var(--mb-1);
+    border: 4px solid var(--first-color);
+}
+
+.menu__name {
+    font-size: var(--h3-font-size);
+    margin-bottom: var(--mb-0-5);
+}
+
+.menu__description {
+    font-size: var(--small-font-size);
+    margin-bottom: var(--mb-1);
+    padding: 0 1rem;
+}
+
+.menu__price {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-bold);
+    color: var(--first-color);
+}
+
+/* ==================== MOMENTOS ==================== */
+.moments__grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 columna por defecto para móviles */
+    gap: 2rem;
+    align-items: center;
+}
+
+.moments__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .5rem;
+    box-shadow: 0 8px 16px hsla(0, 0%, 20%, .1);
+}
+
+.videos__container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los videos se apilen en pantallas muy pequeñas */
+    gap: 2rem;
+    justify-content: center;
+}
+
+.video__frame {
+    flex: 1; /* Cada video intenta ocupar el mismo espacio */
+    min-width: 300px; /* Ancho mínimo para cada video antes de que se apilen */
+    text-align: center;
+}
+
+.video__frame video {
+    width: 100%;
+    height: 700px; /* CAMBIO: Altura fija para todos los videos */
+    object-fit: cover; /* CAMBIO: Asegura que el video cubra el espacio sin deformarse */
+    border-radius: .5rem;
+    border: none;
+    box-shadow: 0 8px 16px hsla(0, 0%, 20%, .1);
+}
+
+.video__caption {
+    margin-top: var(--mb-1);
+    font-style: italic;
+    color: var(--text-color-light);
+}
+
+
+/* ==================== FOOTER ==================== */
+.footer {
+    background-color: var(--title-color);
+    color: #FFF;
+    padding: 4rem 0 2rem;
+    text-align: center;
+}
+
+.footer__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: var(--mb-2);
+}
+
+.footer__title {
+    font-size: var(--h2-font-size);
+    color: #FFF;
+    margin-bottom: var(--mb-1);
+}
+
+.footer__social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer__social-link {
+    font-size: 1.5rem;
+    color: #FFF;
+    transition: .3s;
+}
+
+.footer__social-link:hover {
+    color: var(--first-color);
+    transform: translateY(-2px);
+}
+
+.footer__copy {
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+/* Para dispositivos pequeños */
+@media screen and (max-width: 320px) {
+    .container {
+        margin-left: var(--mb-1);
+        margin-right: var(--mb-1);
+    }
+    .menu__container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Para dispositivos medianos */
+@media screen and (min-width: 576px) {
+    .footer__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        margin: 0;
+    }
+    .section {
+        padding: 6rem 0 2rem;
+    }
+    .nav {
+        height: calc(var(--header-height) + 1.5rem);
+    }
+    .nav__list {
+        display: flex;
+        column-gap: 3rem;
+    }
+    .nav__link {
+        color: var(--container-color);
+    }
+    .nav__toggle,
+    .nav__close {
+        display: none;
+    }
+    .scroll-header .nav__link {
+        color: var(--text-color);
+    }
+    .scroll-header .nav__link:hover {
+        color: var(--first-color);
+    }
+    .moments__grid {
+        /* 2 columnas para tablets y escritorio, la imagen ocupa más espacio */
+        grid-template-columns: 1.5fr 1fr;
+    }
+}
+
+/* Para dispositivos grandes */
+@media screen and (min-width: 1024px) {
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Estilos para el selector de idioma */
+.lang-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.lang-selector a {
+    color: var(--text-color);
+    font-weight: var(--font-bold);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.lang-selector a:hover {
+    color: var(--first-color);
+}
+
+
+/* ==================== MODAL DE INACTIVIDAD ==================== */
+.inactivity-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.inactivity-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.inactivity-modal {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.inactivity-modal-overlay.visible .inactivity-modal {
+    transform: scale(1);
+}
+
+.inactivity-modal h3 {
+    font-family: var(--title-font);
+    font-size: 1.75rem;
+    color: var(--title-color);
+    margin-bottom: 1rem;
+}
+
+.inactivity-modal p {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.inactivity-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

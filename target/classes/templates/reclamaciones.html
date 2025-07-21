@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{reclamaciones.titulo} + ' - Milenaria Café'"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header th:replace="~{fragments/navbar :: navbar}"></header>
+
+    <main class="auth-container">
+        <form th:action="@{/reclamaciones}" th:object="${reclamacion}" method="post" class="auth-form" style="max-width: 800px;">
+            <h2 class="auth-title" th:text="#{reclamaciones.titulo}">Libro de Reclamaciones</h2>
+            
+            <div th:if="${successMessage}" class="alert alert-success" th:text="#{reclamaciones.exito}"></div>
+            
+            <h3 class="form-section-title" th:text="#{reclamaciones.seccion1.titulo}">1. Identificación del Consumidor</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="consumidorNombre" th:text="#{reclamaciones.nombre}">Nombres y Apellidos</label>
+                    <input type="text" id="consumidorNombre" th:field="*{consumidorNombre}" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="consumidorDocumento" th:text="#{reclamaciones.documento}">DNI/CE</label>
+                    <input type="text" id="consumidorDocumento" th:field="*{consumidorDocumento}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="consumidorTelefono" th:text="#{reclamaciones.telefono}">Teléfono</label>
+                    <input type="tel" id="consumidorTelefono" th:field="*{consumidorTelefono}" class="form-control" readonly>
+                </div>
+                 <div class="form-group">
+                    <label for="consumidorCorreo" th:text="#{reclamaciones.correo}">Correo</label>
+                    <input type="email" id="consumidorCorreo" th:field="*{consumidorCorreo}" class="form-control" readonly>
+                </div>
+                <div class="form-group full-width">
+                    <label for="consumidorDireccion" th:text="#{reclamaciones.direccion}">Dirección</label>
+                    <input type="text" id="consumidorDireccion" th:field="*{consumidorDireccion}" class="form-control" required>
+                </div>
+            </div>
+            
+            <h3 class="form-section-title" th:text="#{reclamaciones.seccion2.titulo}">2. Detalle de la Solicitud</h3>
+            <div class="form-grid">
+                 <div class="form-group">
+                    <label for="tipoSolicitud" th:text="#{reclamaciones.tipoSolicitud}">Tipo de Solicitud</label>
+                    <select id="tipoSolicitud" th:field="*{tipoSolicitud}" class="form-control" required>
+                        <option value="RECLAMO" th:text="#{reclamaciones.opcion.reclamo}">Reclamo</option>
+                        <option value="QUEJA" th:text="#{reclamaciones.opcion.queja}">Queja</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipoBien" th:text="#{reclamaciones.tipoBien}">Tipo</label>
+                     <select id="tipoBien" th:field="*{tipoBien}" class="form-control" required>
+                        <option value="PRODUCTO" th:text="#{reclamaciones.opcion.producto}">Producto</option>
+                        <option value="SERVICIO" th:text="#{reclamaciones.opcion.servicio}">Servicio</option>
+                    </select>
+                </div>
+                 <div class="form-group full-width">
+                    <label for="descripcionBien" th:text="#{reclamaciones.descripcionBien}">Descripción del Producto/Servicio</label>
+                    <input type="text" id="descripcionBien" th:field="*{descripcionBien}" class="form-control" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="detalleSolicitud" th:text="#{reclamaciones.detalleSolicitud}">Detalle de su Reclamo/Queja</label>
+                    <textarea id="detalleSolicitud" th:field="*{detalleSolicitud}" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="pedidoConsumidor" th:text="#{reclamaciones.pedidoConsumidor}">Pedido del Consumidor</label>
+                    <textarea id="pedidoConsumidor" th:field="*{pedidoConsumidor}" class="form-control" rows="3" required></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="button" style="width: 100%;" th:text="#{reclamaciones.boton.enviar}">Enviar Reclamación</button>
+        </form>
+    </main>
+
+    <style>
+        .form-section-title {
+            font-family: var(--title-font);
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--first-color);
+            padding-bottom: 0.5rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>
